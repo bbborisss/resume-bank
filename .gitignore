@@ -1,0 +1,19 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code local settings (machine-specific permissions)
+.claude/settings.local.json
+
+# --- If your copy of this repo is PUBLIC, uncomment everything below. ---
+# Your bank, preferences, source materials, tracker, and application folders
+# contain your phone number and complete work history.
+#
+# _bank.md
+# preferences.md
+# source-materials/
+# applications.md
+# */resume_*.typ
+# */cover_letter_*.typ
+# *.pdf

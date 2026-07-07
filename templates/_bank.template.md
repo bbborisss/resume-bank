@@ -86,13 +86,13 @@ platform JDs"). Never paste a specific JD's phrases here.
 
 #show heading.where(level: 1): it => align(center)[
   #text(size: 18pt, weight: "bold", tracking: 0.5pt)[#it.body]
-  #v(0.28em)
+  #v(0.5em)
 ]
 
 #show heading.where(level: 2): it => {
   v(0.9em)
   text(size: 10.5pt, weight: "bold", tracking: 0.35pt)[#it.body]
-  v(-0.5em)
+  v(-0.75em)
   line(length: 100%, stroke: 0.45pt)
   v(0.48em)
 }
@@ -106,7 +106,7 @@ platform JDs"). Never paste a specific JD's phrases here.
     [*#title* | #company | #location],
     [#dates],
   )
-  #v(0.38em)
+  #v(0.55em)
   #body
   #v(0.5em)
 ]

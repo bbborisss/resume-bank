@@ -62,9 +62,9 @@ Slug: `<company>-<role-keyword(s)>` — lowercase, hyphens, max ~5 words (e.g., 
 
 Write `<slug>/resume_<slug>.typ` as a complete, standalone Typst file.
 
-- Copy the `#set`/`#show` rules and the `role()` / `school()` helpers **verbatim from `_bank.md` `## TYPST_RESUME_TEMPLATE`**. The template carries deliberately tuned spacing — do not re-derive or "improve" it (keep the negative `v(-0.5em)` in the level-2 heading rule; it makes the rule line hug the section title).
+- Copy the `#set`/`#show` rules and the `role()` / `school()` helpers **verbatim from `_bank.md` `## TYPST_RESUME_TEMPLATE`**. The template carries deliberately tuned spacing — do not re-derive or "improve" it (keep the negative `v(-0.75em)` in the level-2 heading rule; it makes the rule line hug the section title).
 - Add `#v(0.22em)` on its own line immediately before `== EXPERIENCE` and `== EDUCATION` (only those two).
-- **Header**: name as a level-1 heading, then the contact line and headline each wrapped in `#align(center)[...]` — without the wrapper they render left-aligned. The summary paragraph stays unwrapped (left-aligned).
+- **Header**: name as a level-1 heading, then the contact line and headline each wrapped in `#align(center)[...]` — without the wrapper they render left-aligned. Put `#v(0.45em)` between the contact line, the headline, and the summary paragraph — tighter than that reads crowded. The summary paragraph stays unwrapped (left-aligned).
 - **Skills lines**: the global `#set par(spacing: 0pt)` kills paragraph gaps — put `#v(0.5em)` between skill lines (not after the last).
 - **Escapes**: write `\~` for a literal `~` (bare `~` is a non-breaking space in Typst) and `\@` inside email addresses.
 - **Structure**: name + contact → headline → summary → `== EXPERIENCE` → `== SKILLS` → `== EDUCATION` (unless `preferences.md` reorders it).

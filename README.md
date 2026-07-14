@@ -56,6 +56,7 @@ flagged as a gap for interview prep instead of papered over.
 templates/              # bank skeleton, preferences file, proven Typst layout
 samples/                # three fictional JDs (PM, engineer, marketer) for calibration
 applications.md         # lightweight application tracker (a markdown table)
+job-search-links.html   # clickable, pre-filtered searches across the major job boards
 ```
 
 Files created as you use it (yours, not the template's): `_bank.md`, `preferences.md`,
@@ -76,6 +77,25 @@ can pull upstream skill improvements into your copy without touching your histor
 git remote add upstream https://github.com/bbborisss/resume-bank.git
 git fetch upstream && git merge upstream/main
 ```
+
+## Finding jobs to apply to
+
+`job-search-links.html` is the sourcing side of the loop: a single self-contained page of
+pre-filtered search links across LinkedIn, Indeed, Glassdoor, ZipRecruiter, Built In, and
+Google Jobs. Double-click it to open in any browser (no server, no build, no network calls
+of its own — every link just opens the board's site).
+
+- **Customize once**: click *Customize* to set your target roles (one card per search
+  query), your metro, remote country, and seniority level. Your settings live in your
+  browser's localStorage — never in the repo, so the file stays free of personal data.
+- **Filter live**: two controls — *Location* (your metro / remote / both) and *Posted
+  within* (24 h to 14 days) — rewrite every link on the page. Boards that support date
+  filters in their URLs get the exact window; the rest open filtered to role + location.
+- **Extend it**: boards and their URL builders are one small array in the file's script.
+  Ask Claude Code to add a board, tune a query, or seed the default roles from your
+  `_bank.md`.
+
+Found something? `/tailor-resume <the posting's URL>` and it lands in `applications.md`.
 
 ## The tracker
 

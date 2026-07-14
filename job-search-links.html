@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Search Link Hub</title>
+<style>
+  :root {
+    --ground: #f3f5f2;
+    --surface: #ffffff;
+    --surface-2: #fbfcfa;
+    --ink: #191d1a;
+    --muted: #5b625c;
+    --faint: #838a83;
+    --accent: #0b6b5f;
+    --accent-hover: #095449;
+    --accent-soft: #e2efeb;
+    --accent-ink: #084b42;
+    --border: #e2e3dd;
+    --border-strong: #d3d5cd;
+    --shadow: 0 1px 2px rgba(20,30,25,.05), 0 6px 20px rgba(20,30,25,.045);
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #14171a;
+      --surface: #1c2024;
+      --surface-2: #20252a;
+      --ink: #e9ebe7;
+      --muted: #9aa19a;
+      --faint: #757c76;
+      --accent: #3fc9b0;
+      --accent-hover: #5ad8c1;
+      --accent-soft: #123a34;
+      --accent-ink: #7fe4d2;
+      --border: #2b3036;
+      --border-strong: #363c43;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #f3f5f2; --surface: #ffffff; --surface-2: #fbfcfa;
+    --ink: #191d1a; --muted: #5b625c; --faint: #838a83;
+    --accent: #0b6b5f; --accent-hover: #095449; --accent-soft: #e2efeb; --accent-ink: #084b42;
+    --border: #e2e3dd; --border-strong: #d3d5cd;
+    --shadow: 0 1px 2px rgba(20,30,25,.05), 0 6px 20px rgba(20,30,25,.045);
+  }
+  :root[data-theme="dark"] {
+    --ground: #14171a; --surface: #1c2024; --surface-2: #20252a;
+    --ink: #e9ebe7; --muted: #9aa19a; --faint: #757c76;
+    --accent: #3fc9b0; --accent-hover: #5ad8c1; --accent-soft: #123a34; --accent-ink: #7fe4d2;
+    --border: #2b3036; --border-strong: #363c43;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 72px; }
+
+  /* Header */
+  header { margin-bottom: 28px; }
+  .eyebrow {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--accent);
+    margin: 0 0 6px;
+    letter-spacing: .2px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(28px, 4.4vw, 40px);
+    line-height: 1.08;
+    letter-spacing: -.5px;
+    margin: 0 0 10px;
+    text-wrap: balance;
+  }
+  .lede {
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: 15.5px;
+    margin: 0;
+  }
+  .lede b { color: var(--ink); font-weight: 600; }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px 34px;
+    align-items: flex-end;
+    margin: 26px 0 8px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 12px;
+    z-index: 5;
+  }
+  .ctl-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: var(--faint);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .seg {
+    display: inline-flex;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .seg button {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    padding: 7px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: color .14s, background .14s;
+    white-space: nowrap;
+  }
+  .seg button:hover { color: var(--ink); }
+  .seg button[aria-pressed="true"] {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.14);
+  }
+  .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .customize-btn {
+    margin-left: auto;
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 9px 15px;
+    cursor: pointer;
+    transition: filter .14s;
+  }
+  .customize-btn:hover { filter: brightness(.96); }
+  .customize-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Settings panel */
+  .settings {
+    display: none;
+    margin-top: 14px;
+    padding: 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .settings.open { display: block; }
+  .settings h3 {
+    font-family: var(--serif);
+    font-size: 17px;
+    margin: 0 0 4px;
+  }
+  .settings .hint { color: var(--muted); font-size: 13px; margin: 0 0 18px; }
+  .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px 20px;
+    margin-bottom: 20px;
+  }
+  .field label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    font-weight: 700;
+    color: var(--faint);
+    margin-bottom: 6px;
+  }
+  .field input[type="text"], .field select {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .field input:focus-visible, .field select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .field .sub { font-size: 12px; color: var(--faint); margin: 5px 0 0; }
+
+  .roles-editor { margin-bottom: 20px; }
+  .role-row {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr auto;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+  .role-row input {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 8px 10px;
+    min-width: 0;
+  }
+  .role-row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .role-row .remove {
+    font-size: 16px;
+    line-height: 1;
+    color: var(--faint);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    transition: color .14s, border-color .14s;
+  }
+  .role-row .remove:hover { color: #c0392b; border-color: #c0392b; }
+  .role-row .remove:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .boards-editor { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 20px; }
+  .boards-editor label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .boards-editor input { accent-color: var(--accent); width: 15px; height: 15px; }
+
+  .settings-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 9px;
+    padding: 8px 15px;
+    cursor: pointer;
+    border: 1px solid var(--border-strong);
+    background: var(--surface-2);
+    color: var(--ink);
+    transition: filter .14s;
+  }
+  .btn:hover { filter: brightness(.97); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.danger:hover { color: #c0392b; border-color: #c0392b; }
+
+  .refresh-note {
+    margin: 14px 2px 0;
+    font-size: 13px;
+    color: var(--faint);
+  }
+  .refresh-note b { color: var(--muted); font-weight: 600; }
+
+  /* Role cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 20px 22px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .card h2 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -.2px;
+    margin: 0 0 3px;
+  }
+  .card p.q {
+    color: var(--muted);
+    font-size: 13.5px;
+    margin: 4px 0 16px;
+  }
+  .card p.q code {
+    font-family: var(--sans);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .boards { display: flex; flex-direction: column; gap: 7px; margin-top: auto; }
+  .board-btn {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: border-color .14s, background .14s, transform .06s;
+  }
+  .board-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateX(2px);
+  }
+  .board-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .board-name { flex: 1; }
+  .loc-chip {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    color: var(--muted);
+    background: var(--ground);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 6px;
+  }
+  .arrow { color: var(--faint); font-size: 15px; transition: color .14s, transform .14s; }
+  .board-btn:hover .arrow { color: var(--accent); transform: translateX(2px); }
+
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14.5px;
+    padding: 40px 20px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 14px;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--faint);
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+  footer b { color: var(--muted); font-weight: 600; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">resume-bank companion</p>
+    <h1>Job Search Link Hub</h1>
+    <p class="lede">Pre-filtered searches across the major job boards for <b>your target roles</b>. Click <b>Customize</b> to set your roles, metro, and seniority once — it's saved in this browser, never in the repo. Then set freshness and click through.</p>
+  </header>
+
+  <div class="controls">
+    <div>
+      <span class="ctl-label">Location</span>
+      <div class="seg" id="locSeg" role="group" aria-label="Location">
+        <button data-loc="metro" aria-pressed="true">My metro</button>
+        <button data-loc="remote" aria-pressed="false">Remote</button>
+        <button data-loc="both" aria-pressed="false">Both</button>
+      </div>
+    </div>
+    <div>
+      <span class="ctl-label">Posted within</span>
+      <div class="seg" id="freshSeg" role="group" aria-label="Posted within">
+        <button data-days="1" aria-pressed="false">24 h</button>
+        <button data-days="3" aria-pressed="false">3 days</button>
+        <button data-days="7" aria-pressed="true">7 days</button>
+        <button data-days="14" aria-pressed="false">14 days</button>
+      </div>
+    </div>
+    <button class="customize-btn" id="customizeBtn" aria-expanded="false">Customize&ensp;&#9881;</button>
+  </div>
+
+  <div class="settings" id="settings">
+    <h3>Your search profile</h3>
+    <p class="hint">Saved automatically in this browser (localStorage) — nothing is written back to the repo, so your copy stays free of personal data.</p>
+
+    <div class="settings-grid">
+      <div class="field">
+        <label for="metroInput">Metro / city</label>
+        <input type="text" id="metroInput" placeholder="e.g. Austin, TX">
+        <p class="sub">Used as the location filter on every board.</p>
+      </div>
+      <div class="field">
+        <label for="countryInput">Remote country</label>
+        <input type="text" id="countryInput" placeholder="e.g. United States">
+        <p class="sub">Scopes remote searches on LinkedIn.</p>
+      </div>
+      <div class="field">
+        <label for="senioritySelect">Seniority (LinkedIn)</label>
+        <select id="senioritySelect">
+          <option value="any">Any level</option>
+          <option value="2">Entry level</option>
+          <option value="3">Associate</option>
+          <option value="4">Mid-Senior</option>
+          <option value="5">Director</option>
+          <option value="6">Executive</option>
+        </select>
+        <p class="sub">Only LinkedIn filters by level in the URL.</p>
+      </div>
+      <div class="field">
+        <label for="builtinInput">Built In regional site (optional)</label>
+        <input type="text" id="builtinInput" placeholder="e.g. builtinsf.com">
+        <p class="sub">Blank = national builtin.com. Regional sites: builtinsf, builtinnyc, builtinla, builtinchicago, builtinaustin, builtinseattle, builtinboston, builtincolorado.</p>
+      </div>
+    </div>
+
+    <span class="ctl-label">Role searches — one card each</span>
+    <div class="roles-editor" id="rolesEditor"></div>
+    <div class="settings-actions" style="margin-bottom: 20px;">
+      <button class="btn" id="addRoleBtn">+ Add role</button>
+    </div>
+
+    <span class="ctl-label">Boards</span>
+    <div class="boards-editor" id="boardsEditor"></div>
+
+    <div class="settings-actions">
+      <button class="btn primary" id="doneBtn">Done</button>
+      <button class="btn danger" id="resetBtn">Reset to defaults</button>
+    </div>
+  </div>
+
+  <p class="refresh-note">Links carry the freshness filter into each board's own URL. <b>LinkedIn, Indeed, Glassdoor, ZipRecruiter and Google Jobs</b> honor the date window; Built In opens filtered to role + location (sort by newest on-site).</p>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <b>Tip:</b> Google Jobs aggregates postings from company career pages and smaller boards, so it's the best net for roles the big boards miss.
+    <br><b>Tip:</b> The default roles are just examples matching this repo's sample JDs — replace them with your own targets via Customize.
+    <br>Boards and URL builders live in one small array in this file's script — ask Claude Code to add a board or tune a query.
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STORE_KEY = "job-search-links-config-v1";
+
+  var DEFAULTS = {
+    metro: "San Francisco, CA",
+    remoteCountry: "United States",
+    seniority: "any",
+    builtinSite: "",
+    roles: [
+      { label: "Product Manager",   query: "Senior Product Manager" },
+      { label: "Software Engineer", query: "Senior Software Engineer" },
+      { label: "Product Marketing", query: "Product Marketing Manager" }
+    ],
+    boards: { linkedin: true, indeed: true, glassdoor: true, ziprecruiter: true, builtin: true, google: true }
+  };
+
+  var state = { loc: "metro", days: 7 };
+  var cfg;
+  var firstRun = false;
+
+  function loadConfig() {
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      if (!raw) { firstRun = true; return deepCopy(DEFAULTS); }
+      var saved = JSON.parse(raw);
+      // Merge over defaults so new fields added in future versions get defaults.
+      var merged = deepCopy(DEFAULTS);
+      Object.keys(saved).forEach(function (k) { merged[k] = saved[k]; });
+      merged.boards = Object.assign({}, DEFAULTS.boards, saved.boards || {});
+      return merged;
+    } catch (e) { firstRun = true; return deepCopy(DEFAULTS); }
+  }
+  function saveConfig() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(cfg)); } catch (e) { /* private mode etc. */ }
+  }
+  function deepCopy(o) { return JSON.parse(JSON.stringify(o)); }
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // ---- Board URL builders ----
+  // Each: { id, name, dot, build(query, loc, days, cfg) } where loc is "metro" | "remote".
+  var LI_SEC = { 1: 86400, 3: 259200, 7: 604800, 14: 1209600 };
+  var G_CHIP = { 1: "today", 3: "3days", 7: "week", 14: "month" };
+
+  var BOARDS = [
+    { id: "linkedin", name: "LinkedIn", dot: "#0a66c2", build: function (q, loc, d, c) {
+        var p = "keywords=" + encodeURIComponent(q) + "&f_TPR=r" + LI_SEC[d];
+        if (c.seniority !== "any") p += "&f_E=" + c.seniority;
+        if (loc === "remote") p += "&f_WT=2&location=" + encodeURIComponent(c.remoteCountry);
+        else p += "&location=" + encodeURIComponent(c.metro);
+        return "https://www.linkedin.com/jobs/search/?" + p;
+      } },
+    { id: "indeed", name: "Indeed", dot: "#2557a7", build: function (q, loc, d, c) {
+        var l = loc === "remote" ? "Remote" : c.metro;
+        return "https://www.indeed.com/jobs?q=" + encodeURIComponent(q) +
+               "&l=" + encodeURIComponent(l) + "&fromage=" + d + "&sort=date";
+      } },
+    { id: "glassdoor", name: "Glassdoor", dot: "#0caa41", build: function (q, loc, d, c) {
+        var kw = q + " " + (loc === "remote" ? "remote" : c.metro);
+        return "https://www.glassdoor.com/Job/jobs.htm?sc.keyword=" +
+               encodeURIComponent(kw) + "&fromAge=" + d;
+      } },
+    { id: "ziprecruiter", name: "ZipRecruiter", dot: "#48a832", build: function (q, loc, d, c) {
+        var l = loc === "remote" ? "Remote (USA)" : c.metro;
+        return "https://www.ziprecruiter.com/jobs-search?search=" + encodeURIComponent(q) +
+               "&location=" + encodeURIComponent(l) + "&days=" + d;
+      } },
+    { id: "builtin", name: "Built In", dot: "#ff6c4a", build: function (q, loc, d, c) {
+        if (loc === "remote") return "https://builtin.com/jobs/remote?search=" + encodeURIComponent(q);
+        var site = (c.builtinSite || "").replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+        return "https://" + (site || "builtin.com") + "/jobs?search=" + encodeURIComponent(q);
+      } },
+    { id: "google", name: "Google Jobs", dot: "#4285f4", build: function (q, loc, d, c) {
+        var locWord = loc === "remote" ? "remote" : c.metro;
+        var query = q + " " + locWord + " jobs";
+        return "https://www.google.com/search?q=" + encodeURIComponent(query) +
+               "&ibp=htl;jobs&htichips=date_posted:" + G_CHIP[d] + "&htischips=date_posted";
+      } }
+  ];
+
+  var LOC_LABEL = { metro: "METRO", remote: "RMT" };
+
+  function locsForState() {
+    return state.loc === "both" ? ["metro", "remote"] : [state.loc];
+  }
+
+  // ---- Grid ----
+  function renderGrid() {
+    var grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    var locs = locsForState();
+    var activeBoards = BOARDS.filter(function (b) { return cfg.boards[b.id]; });
+    var roles = cfg.roles.filter(function (r) { return (r.query || "").trim(); });
+
+    if (!roles.length || !activeBoards.length) {
+      grid.innerHTML = '<div class="empty">No role searches yet — click <b>Customize</b> above to add your target roles and pick boards.</div>';
+      return;
+    }
+
+    roles.forEach(function (role) {
+      var card = document.createElement("div");
+      card.className = "card";
+
+      var html = '<h2>' + escapeHtml(role.label || role.query) + '</h2>' +
+        '<p class="q">Searching: <code>' + escapeHtml(role.query) + '</code></p>' +
+        '<div class="boards">';
+
+      activeBoards.forEach(function (b) {
+        locs.forEach(function (loc) {
+          var url = b.build(role.query, loc, state.days, cfg);
+          var chip = state.loc === "both"
+            ? '<span class="loc-chip">' + LOC_LABEL[loc] + '</span>' : '';
+          html += '<a class="board-btn" target="_blank" rel="noopener" href="' + escapeHtml(url) + '">' +
+                    '<span class="dot" style="background:' + b.dot + '"></span>' +
+                    '<span class="board-name">' + b.name + '</span>' +
+                    chip +
+                    '<span class="arrow">&#8599;</span>' +
+                  '</a>';
+        });
+      });
+
+      html += '</div>';
+      card.innerHTML = html;
+      grid.appendChild(card);
+    });
+  }
+
+  // ---- Settings panel ----
+  function renderRolesEditor() {
+    var box = document.getElementById("rolesEditor");
+    box.innerHTML = "";
+    cfg.roles.forEach(function (role, i) {
+      var row = document.createElement("div");
+      row.className = "role-row";
+      row.innerHTML =
+        '<input type="text" data-i="' + i + '" data-k="label" placeholder="Card title" value="' + escapeHtml(role.label) + '">' +
+        '<input type="text" data-i="' + i + '" data-k="query" placeholder="Search query" value="' + escapeHtml(role.query) + '">' +
+        '<button class="remove" data-i="' + i + '" aria-label="Remove role" title="Remove role">&times;</button>';
+      box.appendChild(row);
+    });
+  }
+
+  function renderBoardsEditor() {
+    var box = document.getElementById("boardsEditor");
+    box.innerHTML = "";
+    BOARDS.forEach(function (b) {
+      var label = document.createElement("label");
+      label.innerHTML =
+        '<input type="checkbox" data-board="' + b.id + '"' + (cfg.boards[b.id] ? " checked" : "") + '> ' + b.name;
+      box.appendChild(label);
+    });
+  }
+
+  function syncFields() {
+    document.getElementById("metroInput").value = cfg.metro;
+    document.getElementById("countryInput").value = cfg.remoteCountry;
+    document.getElementById("senioritySelect").value = cfg.seniority;
+    document.getElementById("builtinInput").value = cfg.builtinSite;
+    renderRolesEditor();
+    renderBoardsEditor();
+  }
+
+  function setPanel(open) {
+    document.getElementById("settings").classList.toggle("open", open);
+    document.getElementById("customizeBtn").setAttribute("aria-expanded", String(open));
+  }
+
+  // ---- Events ----
+  function wireSeg(id, attr, key, cast) {
+    var seg = document.getElementById(id);
+    seg.addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn) return;
+      Array.prototype.forEach.call(seg.querySelectorAll("button"), function (b) {
+        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+      });
+      state[key] = cast(btn.getAttribute(attr));
+      renderGrid();
+    });
+  }
+  wireSeg("locSeg", "data-loc", "loc", String);
+  wireSeg("freshSeg", "data-days", "days", function (v) { return parseInt(v, 10); });
+
+  document.getElementById("customizeBtn").addEventListener("click", function () {
+    setPanel(!document.getElementById("settings").classList.contains("open"));
+  });
+  document.getElementById("doneBtn").addEventListener("click", function () { setPanel(false); });
+
+  ["metroInput", "countryInput", "builtinInput"].forEach(function (id) {
+    var keyMap = { metroInput: "metro", countryInput: "remoteCountry", builtinInput: "builtinSite" };
+    document.getElementById(id).addEventListener("input", function (e) {
+      cfg[keyMap[id]] = e.target.value;
+      saveConfig();
+      renderGrid();
+    });
+  });
+  document.getElementById("senioritySelect").addEventListener("change", function (e) {
+    cfg.seniority = e.target.value;
+    saveConfig();
+    renderGrid();
+  });
+
+  // Role edits: update config from inputs without re-rendering the editor (keeps focus).
+  document.getElementById("rolesEditor").addEventListener("input", function (e) {
+    var t = e.target;
+    if (t.tagName !== "INPUT") return;
+    cfg.roles[+t.getAttribute("data-i")][t.getAttribute("data-k")] = t.value;
+    saveConfig();
+    renderGrid();
+  });
+  document.getElementById("rolesEditor").addEventListener("click", function (e) {
+    var btn = e.target.closest("button.remove");
+    if (!btn) return;
+    cfg.roles.splice(+btn.getAttribute("data-i"), 1);
+    saveConfig();
+    renderRolesEditor();
+    renderGrid();
+  });
+  document.getElementById("addRoleBtn").addEventListener("click", function () {
+    cfg.roles.push({ label: "", query: "" });
+    saveConfig();
+    renderRolesEditor();
+    var inputs = document.querySelectorAll("#rolesEditor input");
+    if (inputs.length >= 2) inputs[inputs.length - 2].focus();
+  });
+
+  document.getElementById("boardsEditor").addEventListener("change", function (e) {
+    var t = e.target;
+    if (!t.hasAttribute("data-board")) return;
+    cfg.boards[t.getAttribute("data-board")] = t.checked;
+    saveConfig();
+    renderGrid();
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    if (!confirm("Reset all customizations to the defaults?")) return;
+    cfg = deepCopy(DEFAULTS);
+    saveConfig();
+    syncFields();
+    renderGrid();
+  });
+
+  // ---- Init ----
+  cfg = loadConfig();
+  syncFields();
+  renderGrid();
+  if (firstRun) setPanel(true);
+})();
+</script>
+</body>
+</html>
